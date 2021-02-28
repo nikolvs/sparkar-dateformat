@@ -61,6 +61,14 @@ const update = async () => {
 const twoDigit = (date) => String(date).padStart(2, '0');
 
 /**
+ * Return hours from date to 12 hours format.
+ *
+ * @param {Date} date
+ * @returns {Number}
+ */
+const twelveHoursFormat = (date) => (date.getHours() % 12) || 12;
+
+/**
  * Format a date according to the input string.
  * 
  * @param {Date} date 
@@ -76,8 +84,8 @@ const formatDate = (date, format) => {
     .replace(/(D)/g, date.getDate())
     .replace(/(HH)/g, twoDigit(date.getHours()))
     .replace(/(H)/g, date.getHours())
-    .replace(/(hh)/g, twoDigit(date.getHours() % 12))
-    .replace(/(h)/g, date.getHours() % 12)
+    .replace(/(hh)/g, twoDigit(twelveHoursFormat(date)))
+    .replace(/(h)/g, twelveHoursFormat(date))
     .replace(/(mm)/g, twoDigit(date.getMinutes()))
     .replace(/(m)/g, date.getMinutes())
     .replace(/(ss)/g, twoDigit(date.getSeconds()))
