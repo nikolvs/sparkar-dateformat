@@ -31,6 +31,9 @@ const options = {
 
 /**
  * Display debug messages on console.
+ * 
+ * @param {String} context
+ * @param {String} message
  */
 const debug = (context, message) => {
   options.debug && Diagnostics.log(`[debug][${context}] ${message}`);
@@ -53,6 +56,7 @@ const update = async () => {
  * Returns a date/time number in two digits format.
  * 
  * @param {Number} date 
+ * @returns {String}
  */
 const twoDigit = (date) => String(date).padStart(2, '0');
 
@@ -113,11 +117,6 @@ const watchOutput = async (name, type, callback) => {
  */
 const main = async () => {
   try {
-    // Update date format.
-    watchOutput('format', 'string', (format) => {
-      options.format = format;
-    });
-
     // Update refresh interval.
     watchOutput('refreshInterval', 'number', (refreshInterval) => {
       if (globals.interval) {
@@ -126,6 +125,11 @@ const main = async () => {
 
       options.refreshInterval = refreshInterval;
       globals.interval = Time.setInterval(update, refreshInterval * 1000);
+    });
+
+    // Update date format.
+    watchOutput('format', 'string', (format) => {
+      options.format = format;
     });
 
     // Update debug option.
