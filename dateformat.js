@@ -143,7 +143,7 @@ const main = async () => {
     // Update debug option.
     watchOutput('debug', 'boolean', (debug) => {
       options.debug = debug;
-    })
+    });
   } catch (err) {
     Diagnostics.log(err);
   }
